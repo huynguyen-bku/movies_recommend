@@ -29,8 +29,8 @@ class Recommend:
         self.retriever_genres = self.get_retriever(path_persist_dir=vector_store + '/genres')
         self.retriever_countries = self.get_retriever(path_persist_dir=vector_store + '/countries')
         self.retriever_language = self.get_retriever(path_persist_dir=vector_store + '/language')
-        # self.retriever_title = self.get_retriever(path_persist_dir=vector_store + '/title', k_docs=10)
-        # self.retriever_overview = self.get_retriever(path_persist_dir=vector_store + '/overview', k_docs=10)
+        self.retriever_title = self.get_retriever(path_persist_dir=vector_store + '/title', k_docs=10)
+        self.retriever_overview = self.get_retriever(path_persist_dir=vector_store + '/overview', k_docs=10)
 
         with open(vector_store + "/genres.json", "r") as f:
             self.genres = json.load(f)
@@ -97,14 +97,14 @@ class Recommend:
             text = self.retriever_language.retrieve(dict_feature["language"])[0].text
             all_candidate += self.language[text]
             print("language:", text)
-        # # feature_dict
-        # if 'none' not in dict_feature["title"]:
-        #     candidate_title = self.retriever_title.retrieve(dict_feature['title'])
-        #     all_candidate += [x.metadata['id'] for x in candidate_title]
-        # # overview
-        # if 'none' not in dict_feature["overview"]:
-        #     candidate_overview = self.retriever_overview.retrieve(dict_feature['overview'])
-        #     all_candidate += [x.metadata['id'] for x in candidate_overview]
+        # feature_dict
+        if 'none' not in dict_feature["title"]:
+            candidate_title = self.retriever_title.retrieve(dict_feature['title'])
+            all_candidate += [x.metadata['id'] for x in candidate_title]
+        # overview
+        if 'none' not in dict_feature["overview"]:
+            candidate_overview = self.retriever_overview.retrieve(dict_feature['overview'])
+            all_candidate += [x.metadata['id'] for x in candidate_overview]
         # process all_candidate
         candidate_counter = Counter(all_candidate)
         cnd_dict = {}
