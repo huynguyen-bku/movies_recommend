@@ -1,6 +1,6 @@
 ## 1. Processing Pipeline:
 
-![Alt Text](image/Screenshot 2024-07-15 093759.png)
+![Alt Text](image/pipeline.png)
 
 Step 1: Translate the movie search text into English using GPT-4.0.
 
